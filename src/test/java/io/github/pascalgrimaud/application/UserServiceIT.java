@@ -5,8 +5,8 @@ import static org.mockito.Mockito.when;
 
 import io.github.jhipster.security.RandomUtil;
 import io.github.pascalgrimaud.BurgerApp;
+import io.github.pascalgrimaud.config.Constants;
 import io.github.pascalgrimaud.domain.UserDTO;
-import io.github.pascalgrimaud.infrastructure.config.Constants;
 import io.github.pascalgrimaud.infrastructure.secondary.UserRepository;
 import io.github.pascalgrimaud.infrastructure.secondary.entity.User;
 import java.time.Instant;

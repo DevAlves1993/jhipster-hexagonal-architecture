@@ -7,10 +7,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import io.github.pascalgrimaud.BurgerApp;
 import io.github.pascalgrimaud.application.UserService;
+import io.github.pascalgrimaud.config.Constants;
+import io.github.pascalgrimaud.config.security.AuthoritiesConstants;
 import io.github.pascalgrimaud.domain.PasswordChangeDTO;
 import io.github.pascalgrimaud.domain.UserDTO;
-import io.github.pascalgrimaud.infrastructure.config.Constants;
-import io.github.pascalgrimaud.infrastructure.config.security.AuthoritiesConstants;
 import io.github.pascalgrimaud.infrastructure.primary.vm.KeyAndPasswordVM;
 import io.github.pascalgrimaud.infrastructure.primary.vm.ManagedUserVM;
 import io.github.pascalgrimaud.infrastructure.secondary.AuthorityRepository;

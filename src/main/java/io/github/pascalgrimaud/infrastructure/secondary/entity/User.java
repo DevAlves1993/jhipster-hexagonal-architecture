@@ -1,7 +1,7 @@
 package io.github.pascalgrimaud.infrastructure.secondary.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.github.pascalgrimaud.infrastructure.config.Constants;
+import io.github.pascalgrimaud.config.Constants;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;

@@ -1,8 +1,8 @@
 package io.github.pascalgrimaud.infrastructure.primary;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.github.pascalgrimaud.infrastructure.config.security.jwt.JWTFilter;
-import io.github.pascalgrimaud.infrastructure.config.security.jwt.TokenProvider;
+import io.github.pascalgrimaud.config.security.jwt.JWTFilter;
+import io.github.pascalgrimaud.config.security.jwt.TokenProvider;
 import io.github.pascalgrimaud.infrastructure.primary.vm.LoginVM;
 import javax.validation.Valid;
 import org.springframework.http.HttpHeaders;

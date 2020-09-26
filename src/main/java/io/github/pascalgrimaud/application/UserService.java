@@ -1,10 +1,10 @@
 package io.github.pascalgrimaud.application;
 
 import io.github.jhipster.security.RandomUtil;
+import io.github.pascalgrimaud.config.Constants;
+import io.github.pascalgrimaud.config.security.AuthoritiesConstants;
+import io.github.pascalgrimaud.config.security.SecurityUtils;
 import io.github.pascalgrimaud.domain.UserDTO;
-import io.github.pascalgrimaud.infrastructure.config.Constants;
-import io.github.pascalgrimaud.infrastructure.config.security.AuthoritiesConstants;
-import io.github.pascalgrimaud.infrastructure.config.security.SecurityUtils;
 import io.github.pascalgrimaud.infrastructure.secondary.AuthorityRepository;
 import io.github.pascalgrimaud.infrastructure.secondary.UserRepository;
 import io.github.pascalgrimaud.infrastructure.secondary.entity.Authority;

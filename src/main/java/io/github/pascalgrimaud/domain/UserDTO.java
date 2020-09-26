@@ -1,6 +1,6 @@
 package io.github.pascalgrimaud.domain;
 
-import io.github.pascalgrimaud.infrastructure.config.Constants;
+import io.github.pascalgrimaud.config.Constants;
 import io.github.pascalgrimaud.infrastructure.secondary.entity.Authority;
 import io.github.pascalgrimaud.infrastructure.secondary.entity.User;
 import java.time.Instant;

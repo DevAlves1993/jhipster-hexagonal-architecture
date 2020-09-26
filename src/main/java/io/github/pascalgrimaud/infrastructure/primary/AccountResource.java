@@ -2,9 +2,9 @@ package io.github.pascalgrimaud.infrastructure.primary;
 
 import io.github.pascalgrimaud.application.MailService;
 import io.github.pascalgrimaud.application.UserService;
+import io.github.pascalgrimaud.config.security.SecurityUtils;
 import io.github.pascalgrimaud.domain.PasswordChangeDTO;
 import io.github.pascalgrimaud.domain.UserDTO;
-import io.github.pascalgrimaud.infrastructure.config.security.SecurityUtils;
 import io.github.pascalgrimaud.infrastructure.primary.errors.*;
 import io.github.pascalgrimaud.infrastructure.primary.vm.KeyAndPasswordVM;
 import io.github.pascalgrimaud.infrastructure.primary.vm.ManagedUserVM;

@@ -6,8 +6,7 @@ import static org.mockito.Mockito.*;
 
 import io.github.jhipster.config.JHipsterProperties;
 import io.github.pascalgrimaud.BurgerApp;
-import io.github.pascalgrimaud.application.MailService;
-import io.github.pascalgrimaud.infrastructure.config.Constants;
+import io.github.pascalgrimaud.config.Constants;
 import io.github.pascalgrimaud.infrastructure.secondary.entity.User;
 import java.io.ByteArrayOutputStream;
 import java.io.File;

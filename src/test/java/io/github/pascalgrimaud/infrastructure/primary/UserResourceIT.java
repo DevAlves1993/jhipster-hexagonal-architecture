@@ -8,8 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import io.github.pascalgrimaud.BurgerApp;
 import io.github.pascalgrimaud.application.mapper.UserMapper;
+import io.github.pascalgrimaud.config.security.AuthoritiesConstants;
 import io.github.pascalgrimaud.domain.UserDTO;
-import io.github.pascalgrimaud.infrastructure.config.security.AuthoritiesConstants;
 import io.github.pascalgrimaud.infrastructure.primary.vm.ManagedUserVM;
 import io.github.pascalgrimaud.infrastructure.secondary.UserRepository;
 import io.github.pascalgrimaud.infrastructure.secondary.entity.Authority;

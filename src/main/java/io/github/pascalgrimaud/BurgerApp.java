@@ -2,7 +2,7 @@ package io.github.pascalgrimaud;
 
 import io.github.jhipster.config.DefaultProfileUtil;
 import io.github.jhipster.config.JHipsterConstants;
-import io.github.pascalgrimaud.infrastructure.config.ApplicationProperties;
+import io.github.pascalgrimaud.config.ApplicationProperties;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
