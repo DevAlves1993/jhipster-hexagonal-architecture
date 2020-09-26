@@ -1,14 +1,14 @@
 package io.github.pascalgrimaud.application.mapper;
 
 import io.github.pascalgrimaud.domain.UserDTO;
-import io.github.pascalgrimaud.infrastructure.secondary.entity.Authority;
-import io.github.pascalgrimaud.infrastructure.secondary.entity.User;
+import io.github.pascalgrimaud.infrastructure.secondary.entity.AuthorityEntity;
+import io.github.pascalgrimaud.infrastructure.secondary.entity.UserEntity;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 /**
- * Mapper for the entity {@link User} and its DTO called {@link UserDTO}.
+ * Mapper for the entity {@link UserEntity} and its DTO called {@link UserDTO}.
  *
  * Normal mappers are generated using MapStruct, this one is hand-coded as MapStruct
  * support is still in beta, and requires a manual step with an IDE.
@@ -16,23 +16,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserMapper {
 
-    public List<UserDTO> usersToUserDTOs(List<User> users) {
+    public List<UserDTO> usersToUserDTOs(List<UserEntity> users) {
         return users.stream().filter(Objects::nonNull).map(this::userToUserDTO).collect(Collectors.toList());
     }
 
-    public UserDTO userToUserDTO(User user) {
+    public UserDTO userToUserDTO(UserEntity user) {
         return new UserDTO(user);
     }
 
-    public List<User> userDTOsToUsers(List<UserDTO> userDTOs) {
+    public List<UserEntity> userDTOsToUsers(List<UserDTO> userDTOs) {
         return userDTOs.stream().filter(Objects::nonNull).map(this::userDTOToUser).collect(Collectors.toList());
     }
 
-    public User userDTOToUser(UserDTO userDTO) {
+    public UserEntity userDTOToUser(UserDTO userDTO) {
         if (userDTO == null) {
             return null;
         } else {
-            User user = new User();
+            UserEntity user = new UserEntity();
             user.setId(userDTO.getId());
             user.setLogin(userDTO.getLogin());
             user.setFirstName(userDTO.getFirstName());
@@ -41,14 +41,14 @@ public class UserMapper {
             user.setImageUrl(userDTO.getImageUrl());
             user.setActivated(userDTO.isActivated());
             user.setLangKey(userDTO.getLangKey());
-            Set<Authority> authorities = this.authoritiesFromStrings(userDTO.getAuthorities());
+            Set<AuthorityEntity> authorities = this.authoritiesFromStrings(userDTO.getAuthorities());
             user.setAuthorities(authorities);
             return user;
         }
     }
 
-    private Set<Authority> authoritiesFromStrings(Set<String> authoritiesAsString) {
-        Set<Authority> authorities = new HashSet<>();
+    private Set<AuthorityEntity> authoritiesFromStrings(Set<String> authoritiesAsString) {
+        Set<AuthorityEntity> authorities = new HashSet<>();
 
         if (authoritiesAsString != null) {
             authorities =
@@ -56,7 +56,7 @@ public class UserMapper {
                     .stream()
                     .map(
                         string -> {
-                            Authority auth = new Authority();
+                            AuthorityEntity auth = new AuthorityEntity();
                             auth.setName(string);
                             return auth;
                         }
@@ -67,11 +67,11 @@ public class UserMapper {
         return authorities;
     }
 
-    public User userFromId(Long id) {
+    public UserEntity userFromId(Long id) {
         if (id == null) {
             return null;
         }
-        User user = new User();
+        UserEntity user = new UserEntity();
         user.setId(id);
         return user;
     }

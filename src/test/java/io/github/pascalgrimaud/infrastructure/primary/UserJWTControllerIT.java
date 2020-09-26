@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import io.github.pascalgrimaud.BurgerApp;
 import io.github.pascalgrimaud.infrastructure.primary.vm.LoginVM;
 import io.github.pascalgrimaud.infrastructure.secondary.UserRepository;
-import io.github.pascalgrimaud.infrastructure.secondary.entity.User;
+import io.github.pascalgrimaud.infrastructure.secondary.entity.UserEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -40,7 +40,7 @@ class UserJWTControllerIT {
     @Test
     @Transactional
     void testAuthorize() throws Exception {
-        User user = new User();
+        UserEntity user = new UserEntity();
         user.setLogin("user-jwt-controller");
         user.setEmail("user-jwt-controller@example.com");
         user.setActivated(true);
@@ -63,7 +63,7 @@ class UserJWTControllerIT {
     @Test
     @Transactional
     void testAuthorizeWithRememberMe() throws Exception {
-        User user = new User();
+        UserEntity user = new UserEntity();
         user.setLogin("user-jwt-controller-remember-me");
         user.setEmail("user-jwt-controller-remember-me@example.com");
         user.setActivated(true);

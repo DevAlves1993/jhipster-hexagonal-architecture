@@ -3,7 +3,7 @@ package io.github.pascalgrimaud.application.mapper;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.pascalgrimaud.domain.UserDTO;
-import io.github.pascalgrimaud.infrastructure.secondary.entity.User;
+import io.github.pascalgrimaud.infrastructure.secondary.entity.UserEntity;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,13 +20,13 @@ class UserMapperTest {
     private static final Long DEFAULT_ID = 1L;
 
     private UserMapper userMapper;
-    private User user;
+    private UserEntity user;
     private UserDTO userDto;
 
     @BeforeEach
     public void init() {
         userMapper = new UserMapper();
-        user = new User();
+        user = new UserEntity();
         user.setLogin(DEFAULT_LOGIN);
         user.setPassword(RandomStringUtils.random(60));
         user.setActivated(true);
@@ -41,7 +41,7 @@ class UserMapperTest {
 
     @Test
     void usersToUserDTOsShouldMapOnlyNonNullUsers() {
-        List<User> users = new ArrayList<>();
+        List<UserEntity> users = new ArrayList<>();
         users.add(user);
         users.add(null);
 
@@ -56,7 +56,7 @@ class UserMapperTest {
         usersDto.add(userDto);
         usersDto.add(null);
 
-        List<User> users = userMapper.userDTOsToUsers(usersDto);
+        List<UserEntity> users = userMapper.userDTOsToUsers(usersDto);
 
         assertThat(users).isNotEmpty().size().isEqualTo(1);
     }
@@ -70,7 +70,7 @@ class UserMapperTest {
         List<UserDTO> usersDto = new ArrayList<>();
         usersDto.add(userDto);
 
-        List<User> users = userMapper.userDTOsToUsers(usersDto);
+        List<UserEntity> users = userMapper.userDTOsToUsers(usersDto);
 
         assertThat(users).isNotEmpty().size().isEqualTo(1);
         assertThat(users.get(0).getAuthorities()).isNotNull();
@@ -85,7 +85,7 @@ class UserMapperTest {
         List<UserDTO> usersDto = new ArrayList<>();
         usersDto.add(userDto);
 
-        List<User> users = userMapper.userDTOsToUsers(usersDto);
+        List<UserEntity> users = userMapper.userDTOsToUsers(usersDto);
 
         assertThat(users).isNotEmpty().size().isEqualTo(1);
         assertThat(users.get(0).getAuthorities()).isNotNull();
@@ -98,7 +98,7 @@ class UserMapperTest {
         authoritiesAsString.add("ADMIN");
         userDto.setAuthorities(authoritiesAsString);
 
-        User user = userMapper.userDTOToUser(userDto);
+        UserEntity user = userMapper.userDTOToUser(userDto);
 
         assertThat(user).isNotNull();
         assertThat(user.getAuthorities()).isNotNull();
@@ -110,7 +110,7 @@ class UserMapperTest {
     void userDTOToUserMapWithNullAuthoritiesStringShouldReturnUserWithEmptyAuthorities() {
         userDto.setAuthorities(null);
 
-        User user = userMapper.userDTOToUser(userDto);
+        UserEntity user = userMapper.userDTOToUser(userDto);
 
         assertThat(user).isNotNull();
         assertThat(user.getAuthorities()).isNotNull();

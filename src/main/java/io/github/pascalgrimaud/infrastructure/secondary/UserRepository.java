@@ -1,6 +1,6 @@
 package io.github.pascalgrimaud.infrastructure.secondary;
 
-import io.github.pascalgrimaud.infrastructure.secondary.entity.User;
+import io.github.pascalgrimaud.infrastructure.secondary.entity.UserEntity;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
@@ -12,31 +12,31 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data JPA repository for the {@link User} entity.
+ * Spring Data JPA repository for the {@link UserEntity} entity.
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
     String USERS_BY_LOGIN_CACHE = "usersByLogin";
 
     String USERS_BY_EMAIL_CACHE = "usersByEmail";
 
-    Optional<User> findOneByActivationKey(String activationKey);
+    Optional<UserEntity> findOneByActivationKey(String activationKey);
 
-    List<User> findAllByActivatedIsFalseAndActivationKeyIsNotNullAndCreatedDateBefore(Instant dateTime);
+    List<UserEntity> findAllByActivatedIsFalseAndActivationKeyIsNotNullAndCreatedDateBefore(Instant dateTime);
 
-    Optional<User> findOneByResetKey(String resetKey);
+    Optional<UserEntity> findOneByResetKey(String resetKey);
 
-    Optional<User> findOneByEmailIgnoreCase(String email);
+    Optional<UserEntity> findOneByEmailIgnoreCase(String email);
 
-    Optional<User> findOneByLogin(String login);
+    Optional<UserEntity> findOneByLogin(String login);
 
     @EntityGraph(attributePaths = "authorities")
     @Cacheable(cacheNames = USERS_BY_LOGIN_CACHE)
-    Optional<User> findOneWithAuthoritiesByLogin(String login);
+    Optional<UserEntity> findOneWithAuthoritiesByLogin(String login);
 
     @EntityGraph(attributePaths = "authorities")
     @Cacheable(cacheNames = USERS_BY_EMAIL_CACHE)
-    Optional<User> findOneWithAuthoritiesByEmailIgnoreCase(String email);
+    Optional<UserEntity> findOneWithAuthoritiesByEmailIgnoreCase(String email);
 
-    Page<User> findAllByLoginNot(Pageable pageable, String login);
+    Page<UserEntity> findAllByLoginNot(Pageable pageable, String login);
 }

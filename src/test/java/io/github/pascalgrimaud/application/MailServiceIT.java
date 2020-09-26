@@ -7,7 +7,7 @@ import static org.mockito.Mockito.*;
 import io.github.jhipster.config.JHipsterProperties;
 import io.github.pascalgrimaud.BurgerApp;
 import io.github.pascalgrimaud.config.Constants;
-import io.github.pascalgrimaud.infrastructure.secondary.entity.User;
+import io.github.pascalgrimaud.infrastructure.secondary.entity.UserEntity;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -134,7 +134,7 @@ class MailServiceIT {
 
     @Test
     void testSendEmailFromTemplate() throws Exception {
-        User user = new User();
+        UserEntity user = new UserEntity();
         user.setLogin("john");
         user.setEmail("john.doe@example.com");
         user.setLangKey("en");
@@ -150,7 +150,7 @@ class MailServiceIT {
 
     @Test
     void testSendActivationEmail() throws Exception {
-        User user = new User();
+        UserEntity user = new UserEntity();
         user.setLangKey(Constants.DEFAULT_LANGUAGE);
         user.setLogin("john");
         user.setEmail("john.doe@example.com");
@@ -165,7 +165,7 @@ class MailServiceIT {
 
     @Test
     void testCreationEmail() throws Exception {
-        User user = new User();
+        UserEntity user = new UserEntity();
         user.setLangKey(Constants.DEFAULT_LANGUAGE);
         user.setLogin("john");
         user.setEmail("john.doe@example.com");
@@ -180,7 +180,7 @@ class MailServiceIT {
 
     @Test
     void testSendPasswordResetMail() throws Exception {
-        User user = new User();
+        UserEntity user = new UserEntity();
         user.setLangKey(Constants.DEFAULT_LANGUAGE);
         user.setLogin("john");
         user.setEmail("john.doe@example.com");
@@ -205,7 +205,7 @@ class MailServiceIT {
 
     @Test
     void testSendLocalizedEmailForAllSupportedLanguages() throws Exception {
-        User user = new User();
+        UserEntity user = new UserEntity();
         user.setLogin("john");
         user.setEmail("john.doe@example.com");
         for (String langKey : languages) {

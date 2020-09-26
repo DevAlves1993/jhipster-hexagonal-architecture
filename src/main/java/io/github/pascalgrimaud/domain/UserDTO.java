@@ -1,8 +1,8 @@
 package io.github.pascalgrimaud.domain;
 
 import io.github.pascalgrimaud.config.Constants;
-import io.github.pascalgrimaud.infrastructure.secondary.entity.Authority;
-import io.github.pascalgrimaud.infrastructure.secondary.entity.User;
+import io.github.pascalgrimaud.infrastructure.secondary.entity.AuthorityEntity;
+import io.github.pascalgrimaud.infrastructure.secondary.entity.UserEntity;
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -51,7 +51,7 @@ public class UserDTO {
         // Empty constructor needed for Jackson.
     }
 
-    public UserDTO(User user) {
+    public UserDTO(UserEntity user) {
         this.id = user.getId();
         this.login = user.getLogin();
         this.firstName = user.getFirstName();
@@ -64,7 +64,7 @@ public class UserDTO {
         this.createdDate = user.getCreatedDate();
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
-        this.authorities = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet());
+        this.authorities = user.getAuthorities().stream().map(AuthorityEntity::getName).collect(Collectors.toSet());
     }
 
     public Long getId() {

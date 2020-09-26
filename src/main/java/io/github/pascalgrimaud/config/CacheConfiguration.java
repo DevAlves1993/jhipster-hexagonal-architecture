@@ -3,8 +3,8 @@ package io.github.pascalgrimaud.config;
 import io.github.jhipster.config.JHipsterProperties;
 import io.github.jhipster.config.cache.PrefixedKeyGenerator;
 import io.github.pascalgrimaud.infrastructure.secondary.UserRepository;
-import io.github.pascalgrimaud.infrastructure.secondary.entity.Authority;
-import io.github.pascalgrimaud.infrastructure.secondary.entity.User;
+import io.github.pascalgrimaud.infrastructure.secondary.entity.AuthorityEntity;
+import io.github.pascalgrimaud.infrastructure.secondary.entity.UserEntity;
 import java.time.Duration;
 import org.ehcache.config.builders.*;
 import org.ehcache.jsr107.Eh107Configuration;
@@ -47,9 +47,9 @@ public class CacheConfiguration {
         return cm -> {
             createCache(cm, UserRepository.USERS_BY_LOGIN_CACHE);
             createCache(cm, UserRepository.USERS_BY_EMAIL_CACHE);
-            createCache(cm, User.class.getName());
-            createCache(cm, Authority.class.getName());
-            createCache(cm, User.class.getName() + ".authorities");
+            createCache(cm, UserEntity.class.getName());
+            createCache(cm, AuthorityEntity.class.getName());
+            createCache(cm, UserEntity.class.getName() + ".authorities");
             // jhipster-needle-ehcache-add-entry
         };
     }

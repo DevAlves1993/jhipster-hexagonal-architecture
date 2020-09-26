@@ -7,8 +7,8 @@ import io.github.pascalgrimaud.config.security.SecurityUtils;
 import io.github.pascalgrimaud.domain.UserDTO;
 import io.github.pascalgrimaud.infrastructure.secondary.AuthorityRepository;
 import io.github.pascalgrimaud.infrastructure.secondary.UserRepository;
-import io.github.pascalgrimaud.infrastructure.secondary.entity.Authority;
-import io.github.pascalgrimaud.infrastructure.secondary.entity.User;
+import io.github.pascalgrimaud.infrastructure.secondary.entity.AuthorityEntity;
+import io.github.pascalgrimaud.infrastructure.secondary.entity.UserEntity;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -51,7 +51,7 @@ public class UserService {
         this.cacheManager = cacheManager;
     }
 
-    public Optional<User> activateRegistration(String key) {
+    public Optional<UserEntity> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
         return userRepository
             .findOneByActivationKey(key)
@@ -67,7 +67,7 @@ public class UserService {
             );
     }
 
-    public Optional<User> completePasswordReset(String newPassword, String key) {
+    public Optional<UserEntity> completePasswordReset(String newPassword, String key) {
         log.debug("Reset user password for reset key {}", key);
         return userRepository
             .findOneByResetKey(key)
@@ -83,10 +83,10 @@ public class UserService {
             );
     }
 
-    public Optional<User> requestPasswordReset(String mail) {
+    public Optional<UserEntity> requestPasswordReset(String mail) {
         return userRepository
             .findOneByEmailIgnoreCase(mail)
-            .filter(User::isActivated)
+            .filter(UserEntity::isActivated)
             .map(
                 user -> {
                     user.setResetKey(RandomUtil.generateResetKey());
@@ -97,7 +97,7 @@ public class UserService {
             );
     }
 
-    public User registerUser(UserDTO userDTO, String password) {
+    public UserEntity registerUser(UserDTO userDTO, String password) {
         userRepository
             .findOneByLogin(userDTO.getLogin().toLowerCase())
             .ifPresent(
@@ -118,7 +118,7 @@ public class UserService {
                     }
                 }
             );
-        User newUser = new User();
+        UserEntity newUser = new UserEntity();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(userDTO.getLogin().toLowerCase());
         // new user gets initially a generated password
@@ -134,7 +134,7 @@ public class UserService {
         newUser.setActivated(false);
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
-        Set<Authority> authorities = new HashSet<>();
+        Set<AuthorityEntity> authorities = new HashSet<>();
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
@@ -143,7 +143,7 @@ public class UserService {
         return newUser;
     }
 
-    private boolean removeNonActivatedUser(User existingUser) {
+    private boolean removeNonActivatedUser(UserEntity existingUser) {
         if (existingUser.isActivated()) {
             return false;
         }
@@ -153,8 +153,8 @@ public class UserService {
         return true;
     }
 
-    public User createUser(UserDTO userDTO) {
-        User user = new User();
+    public UserEntity createUser(UserDTO userDTO) {
+        UserEntity user = new UserEntity();
         user.setLogin(userDTO.getLogin().toLowerCase());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
@@ -173,7 +173,7 @@ public class UserService {
         user.setResetDate(Instant.now());
         user.setActivated(true);
         if (userDTO.getAuthorities() != null) {
-            Set<Authority> authorities = userDTO
+            Set<AuthorityEntity> authorities = userDTO
                 .getAuthorities()
                 .stream()
                 .map(authorityRepository::findById)
@@ -211,7 +211,7 @@ public class UserService {
                     user.setImageUrl(userDTO.getImageUrl());
                     user.setActivated(userDTO.isActivated());
                     user.setLangKey(userDTO.getLangKey());
-                    Set<Authority> managedAuthorities = user.getAuthorities();
+                    Set<AuthorityEntity> managedAuthorities = user.getAuthorities();
                     managedAuthorities.clear();
                     userDTO
                         .getAuthorities()
@@ -293,12 +293,12 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<User> getUserWithAuthoritiesByLogin(String login) {
+    public Optional<UserEntity> getUserWithAuthoritiesByLogin(String login) {
         return userRepository.findOneWithAuthoritiesByLogin(login);
     }
 
     @Transactional(readOnly = true)
-    public Optional<User> getUserWithAuthorities() {
+    public Optional<UserEntity> getUserWithAuthorities() {
         return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
     }
 
@@ -326,10 +326,10 @@ public class UserService {
      */
     @Transactional(readOnly = true)
     public List<String> getAuthorities() {
-        return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
+        return authorityRepository.findAll().stream().map(AuthorityEntity::getName).collect(Collectors.toList());
     }
 
-    private void clearUserCaches(User user) {
+    private void clearUserCaches(UserEntity user) {
         Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE)).evict(user.getLogin());
         if (user.getEmail() != null) {
             Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());

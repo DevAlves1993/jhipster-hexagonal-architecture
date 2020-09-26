@@ -23,7 +23,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "jhi_user")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class User extends AbstractAuditingEntity implements Serializable {
+public class UserEntity extends AbstractAuditingEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -90,7 +90,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     )
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @BatchSize(size = 20)
-    private Set<Authority> authorities = new HashSet<>();
+    private Set<AuthorityEntity> authorities = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -189,11 +189,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.langKey = langKey;
     }
 
-    public Set<Authority> getAuthorities() {
+    public Set<AuthorityEntity> getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(Set<Authority> authorities) {
+    public void setAuthorities(Set<AuthorityEntity> authorities) {
         this.authorities = authorities;
     }
 
@@ -202,10 +202,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof User)) {
+        if (!(o instanceof UserEntity)) {
             return false;
         }
-        return id != null && id.equals(((User) o).id);
+        return id != null && id.equals(((UserEntity) o).id);
     }
 
     @Override
